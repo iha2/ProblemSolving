@@ -8,4 +8,4 @@ fib :: Integral a => [a]
 fib = 1:1:zipWith (+) fib (tail fib)
 
 main:: IO ()
-main = print $ filter (\x -> x `mod` 2 == 0) $ takeWhile (< 4000000) fib
+main = print $ filter ((==) 0 . mod 2) $ takeWhile (< 4000000) fib
