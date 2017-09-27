@@ -46,7 +46,7 @@ collection = [7,3,1,6,7,1,7,6,5,3,1,3,3,0,6,2,4,9,1,9,2,2,5,1,1,9,6,7,4,4,2,6,5,
 
 
 maxAdjacents :: Integer -> Int -> [Integer] -> Integer
-maxAdjacents result size [] = 0
+maxAdjacents _ _ [] = 0
 maxAdjacents result size xs
     | length xs < size = result
     | otherwise = if (adjacentNumProd > result)
