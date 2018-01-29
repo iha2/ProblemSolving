@@ -4,12 +4,12 @@
 -- Find the sum of all the multiples of 3 or 5 below 1000.
 
 
-isMultipleFromCollection :: (Integral a) => [a] -> a -> Bool
-isMultipleFromCollection [] value         = False
-isMultipleFromCollection divisors value   = foldr ((||) . (==) 0 . mod value) False divisors
+isMultiple :: (Integral a) => [a] -> a -> Bool
+isMultiple [] _         = False
+isMultiple divisors value   = foldr ((||) . (==) 0 . mod value) False divisors
 
 sumOfMultiples :: (Integral a) => a -> [a] -> a
-sumOfMultiples n multiplesColl = sum $ filter (isMultipleFromCollection multiplesColl) [1..(n-1)]
+sumOfMultiples n multiplesColl = sum $ filter (isMultiple multiplesColl) [1..(n-1)]
 
 main :: IO ()
 main = do 
