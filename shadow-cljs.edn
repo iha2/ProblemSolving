@@ -1,6 +1,6 @@
 ;; shadow-cljs configuration
 {:source-paths
- ["src"]
+ ["src", "src/DailyProgrammer/single_symbols_squares"]
 
  :dependencies
  [[reagent "0.8.1"]
@@ -8,8 +8,8 @@
   [proto-repl-charts  "0.3.2"]
   [org.clojure/core.async "0.4.474"]]
 
- :builds {:script
+ :builds {:single-symbols-squares
           {:id        :script
            :target    :node-script
-           :main      DailyProgrammer.main/main
+           :main      DailyProgrammer.single_symbols_squares/main
            :output-to "out/script.js"}}}

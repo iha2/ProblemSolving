@@ -1,4 +1,4 @@
-(ns DailyProgrammer.main)
+(ns DailyProgrammer.main (:require []))
 
 
 (defn main [& cli-args]
