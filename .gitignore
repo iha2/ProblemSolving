@@ -4,3 +4,5 @@
 Euler.cabal
 *~
 .vscode
+.shadow-cljs
+node_modules

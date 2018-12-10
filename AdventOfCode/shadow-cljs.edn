@@ -1,0 +1,16 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ [[reagent "0.8.1"]
+  [proto-repl "0.3.1"]
+  [proto-repl-charts  "0.3.2"]
+  [org.clojure/core.async "0.4.474"]
+  [cljs-node-io "1.1.2"]]
+
+ :builds
+ {:problem1 {:target :node-script
+                :output-to "public/js/problem1.js"
+                :main problem1.main/main
+                :asset-path "/js"}}}
