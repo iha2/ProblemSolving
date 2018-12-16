@@ -11,6 +11,10 @@
 
  :builds
  {:problem1 {:target :node-script
-                :output-to "public/js/problem1.js"
-                :main problem1.main/main
-                :asset-path "/js"}}}
+             :output-to "public/js/problem1.js"
+             :main problem1.main/main
+             :asset-path "/js"}
+  :problem2 {:target :node-script
+             :output-to "public/js/problem2.js"
+             :main problem2.main/main
+             :asset-path "/js"}}}
