@@ -18,4 +18,8 @@
   :problem2 {:target :node-script
              :output-to "public/js/problem2.js"
              :main problem2.main/main
-             :asset-path "/js"}}}
+             :asset-path "/js"}
+  :problem3 {:target :node-script
+             :output-to "public/js/problem3.js"
+             :main problem3.main/main
+            :asset-path "/js"}}}
