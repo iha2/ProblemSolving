@@ -36,21 +36,29 @@
              {:2 (+ (:2 %1) (if (contains? value 2) 1 0))
               :3 (+ (:3 %1) (if (contains? value 3) 1 0))}) {:2 0 :3 0} (apply vector all-terms-values)))
 
+(defn difference-in-string-position [coll-one coll-two]
+  (loop [col-1 coll-one
+         col-2 coll-two
+         matches []
+         difference []]
+    (cond
+      (or (empty? col-1) (empty? col-2)) (do
+                                           {:matches matches
+                                            :difference difference})
+      (not= (first col-1) (first col-2)) (recur (rest col-1) (rest col-2) matches (conj difference (first col-2)))
+      :else (recur (rest col-1) (rest col-2) (conj matches (first col-2)) difference))))
+
 (defn diff-chararcter-by-one [data]
-  (let [unique-collection (apply sorted-set data)
-        ordered-sort (partial apply sorted-set)]
-    (loop [collection unique-collection
-           different-by-one #{}]
-      (let [first-ids (first collection)
-            second-ids (second collection)
-            chars-difference (difference (-> first-ids (split "") set) (-> second-ids (split "") set))
-            similarity (difference (-> second-ids (split "") set) chars-difference)]
-        ; (println set )
-        ; (println (difference (-> first-ids (split "") set) (-> second-ids (split "") set)))
-        ; (println (difference (-> second-ids (split "") set) chars-difference))
-        (cond (empty? collection) different-by-one
-              (= 1 (count chars-difference)) (recur (rest collection) (conj different-by-one similarity))
-              :else (recur (rest collection) different-by-one))))))
+  (let [unique-collection (apply vector (apply sorted-set data))]
+    (loop [collection unique-collection]
+      (if (= 1 (count collection))
+        nil
+        (let [first-id (first collection)
+              second-id (second collection)
+              chars-differences (difference-in-string-position (-> first-id (split "")) (-> second-id (split "")))]
+          (if (= 1 (count (:difference chars-differences)))
+            chars-differences
+            (recur (rest collection))))))))
 
 (defn main []
   (take!
@@ -60,4 +68,5 @@
                (let [data (apply vector result)]
                  (println (diff-chararcter-by-one data)))
                (let [answer (checksum-term-sumation result)]
-                 (println (* (:2 answer) (:3 answer)))))))))
+                 (println (* (:2 answer) (:3 answer))))
+)))))
