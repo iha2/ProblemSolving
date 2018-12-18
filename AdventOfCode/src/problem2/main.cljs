@@ -36,21 +36,47 @@
              {:2 (+ (:2 %1) (if (contains? value 2) 1 0))
               :3 (+ (:3 %1) (if (contains? value 3) 1 0))}) {:2 0 :3 0} (apply vector all-terms-values)))
 
+(defn difference-in-string-position [coll-one coll-two]
+  (loop [col-1 coll-one
+         col-2 coll-two
+         matches ()
+         difference ()]
+    ; (println difference)
+    (cond
+      (and (empty? col-1) (empty? col-2)) (do
+                                            (println "both empty" {:matches matches
+                                                      :difference difference})
+                                            {:matches matches
+                                             :difference difference})
+      (and ((comp not empty?) col-2) (empty? col-1)) (do
+                                                       (println (count coll-one) (count coll-two) coll-one coll-two col-2 "col-2 empty" {:matches matches
+                                                                 :difference (concat difference col-2)})
+                                                       {:matches matches
+                                                        :difference (concat difference col-2)})
+      (and (empty? col-1) ((comp not empty?) col-1)) (do
+                                                       (println col-1 "col-1 empty" {:matches matches
+                                                                 :difference (concat difference col-1)})
+                                                       {:matches matches
+                                                        :difference (concat difference col-1)})
+      ((comp not =) (first col-1) (first col-2)) (recur (rest col-1) (rest col-2) matches (conj difference (first col-2)))
+      :else (recur (rest col-1) (rest col-2) (conj matches (first col-2)) difference))))
+
 (defn diff-chararcter-by-one [data]
-  (let [unique-collection (apply sorted-set data)
-        ordered-sort (partial apply sorted-set)]
+  (let [unique-collection (apply sorted-set (map str data))]
+    (println unique-collection)
     (loop [collection unique-collection
-           different-by-one #{}]
-      (let [first-ids (first collection)
-            second-ids (second collection)
-            chars-difference (difference (-> first-ids (split "") set) (-> second-ids (split "") set))
-            similarity (difference (-> second-ids (split "") set) chars-difference)]
-        ; (println set )
-        ; (println (difference (-> first-ids (split "") set) (-> second-ids (split "") set)))
-        ; (println (difference (-> second-ids (split "") set) chars-difference))
-        (cond (empty? collection) different-by-one
-              (= 1 (count chars-difference)) (recur (rest collection) (conj different-by-one similarity))
-              :else (recur (rest collection) different-by-one))))))
+           different-by-one ()]
+      (if (= 1 (count collection))
+        (do
+          (println different-by-one)
+          different-by-one)
+        (let [first-ids (first collection)
+              second-ids (second collection)
+              chars-differences (difference-in-string-position (-> first-ids (split "")) (-> second-ids (split "")))]
+
+          (if (= 1 (count (:difference chars-differences)))
+            (recur (rest collection) (conj different-by-one chars-differences))
+            (recur (rest collection) different-by-one)))))))
 
 (defn main []
   (take!
@@ -59,5 +85,6 @@
              (let [result (<! x)]
                (let [data (apply vector result)]
                  (println (diff-chararcter-by-one data)))
-               (let [answer (checksum-term-sumation result)]
-                 (println (* (:2 answer) (:3 answer)))))))))
+              ;  (let [answer (checksum-term-sumation result)]
+              ;    (println (* (:2 answer) (:3 answer))))
+               )))))
