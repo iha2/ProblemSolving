@@ -39,36 +39,26 @@
 (defn difference-in-string-position [coll-one coll-two]
   (loop [col-1 coll-one
          col-2 coll-two
-         matches ()
-         difference ()]
+         matches []
+         difference []]
     ; (println difference)
     (cond
-      (and (empty? col-1) (empty? col-2)) (do
+      (or (empty? col-1) (empty? col-2)) (do
                                             (println "both empty" {:matches matches
                                                       :difference difference})
                                             {:matches matches
                                              :difference difference})
-      (and ((comp not empty?) col-2) (empty? col-1)) (do
-                                                       (println (count coll-one) (count coll-two) coll-one coll-two col-2 "col-2 empty" {:matches matches
-                                                                 :difference (concat difference col-2)})
-                                                       {:matches matches
-                                                        :difference (concat difference col-2)})
-      (and (empty? col-1) ((comp not empty?) col-1)) (do
-                                                       (println col-1 "col-1 empty" {:matches matches
-                                                                 :difference (concat difference col-1)})
-                                                       {:matches matches
-                                                        :difference (concat difference col-1)})
       ((comp not =) (first col-1) (first col-2)) (recur (rest col-1) (rest col-2) matches (conj difference (first col-2)))
       :else (recur (rest col-1) (rest col-2) (conj matches (first col-2)) difference))))
 
 (defn diff-chararcter-by-one [data]
   (let [unique-collection (apply sorted-set (map str data))]
-    (println unique-collection)
+    ; (println unique-collection)
     (loop [collection unique-collection
            different-by-one ()]
       (if (= 1 (count collection))
         (do
-          (println different-by-one)
+          ; (println different-by-one)
           different-by-one)
         (let [first-ids (first collection)
               second-ids (second collection)
