@@ -3,7 +3,6 @@
                             [cljs.reader :refer [read-string]]))
 
 (defn construct-cube [properties]
-  (print properties)
   {:index (nth properties 0)
    :meta-data (nth properties 1)
    :top-left-x (nth properties 2)
@@ -11,42 +10,27 @@
    :width (nth properties 4)
    :height (nth properties 5)})
 
+(defn create-grid-unit [top-left-y top-left-x x y]
+  (let [new-x (+ top-left-x x)
+        new-y (+ top-left-y y)
+        unique-key (keyword (str new-x "-" new-y))]
+    {unique-key 1}))
 
-(defn update-length [state]
-  "should return - {:top-x [:112 :113 :114...] :top-3 [:312 :313 :314...]}"
-  {:top-x (reduce #(conj %1 (keyword (+ (:top-left-x state) %2))) [] (range (:width state)))
-   :top-y (reduce #(conj %1 (keyword (+ (:top-left-y state) %2))) [] (range (:height state)))})
+(defn update-grid-with-cube [grid cube]
+  (reduce (fn [update-grid-y height]
+            (let [top-left-x (:top-left-x cube)
+                  top-left-y (:top-left-y cube)
+                  width-vals (range (:width cube))]
+              (reduce (fn [update-grid-x width]
+                        (let [grid-value (create-grid-unit top-left-y top-left-x width height)]
+                          (if (nil? ((-> grid-value keys first) update-grid-x)) nil ((-> grid-value keys first) update-grid-x))
+                          (merge-with + update-grid-x grid-value)))
+                      update-grid-y width-vals)))
+          grid (range (:height cube))))
 
-(defn bottom-right [properties]
-  {:bottom-right-x (+ (:width properties) (:top-left-x properties))
-   :bottom-right-y (+ (:height properties) (:top-left-y properties))})
+(defn generate-grid [grid-data]
+  (reduce #(update-grid-with-cube %1 %2) {} grid-data))
 
-(defn bottom-right-hash [properties]
-  (Math/SQRT2 (:bottom-left-y properties) (:bottom-left-x properties)))
-
-(defn top-left-hash [properties]
-  (Math/SQRT2 (:top-left-y properties) (:top-left-x properties)))
-
-(defn nested-square [square-prop-one square-prop-two]
-  (if (< (top-left-hash square-prop-two) (bottom-right-hash square-prop-one))
-    (* (- (:bottom-right-y square-prop-one) (:top-left-y square-prop-two)) (- (:bottom-right-x square-prop-one) (:top-left-x square-prop-two)))
-    0))
-
-
-
-(defn sort-squares [square-collection]
-  ; (println (->> square-collection first construct-cube))
-; #(let [cube (construct-cube %)] (fn [x] (println (:top-left-y cube) (:top-left-x cube)) (Math/SQRT2 (:top-left-y cube) (:top-left-x cube))) construct-cube)  
-  (sort-by (fn [x] (->> x construct-cube (fn [x] (Math/SQRT2 (:top-left-y x) (:top-left-x x))))) square-collection))
-
-; (generate-cube [properties]
-;                (reduce ))
-
-(defn search-for-overlaps [sorted-squares]
-  (loop [squares sorted-squares
-         last-square (first sorted-squares)
-         current-square (second sorted-squares)
-         overlap-data ((construct-cube last-square))]))
 
 
 (defn read-from-file [file]
@@ -65,5 +49,6 @@
   (take!
    (read-from-file "src/problem3/data.edn")
    (fn [x] (go (let [result (<! x)]
-                 (let [cljs-answer (take 10 (apply vector result))]
-                   (println (->> cljs-answer sort-squares))))))))
+                 (let [cljs-answer (apply vector result)]
+                  ;  (println (merge-with +  {:a 12 :b 12} {:a 12 :b 12}) )
+                   (println (count (filter #(> (second %1) 1) (->> (map construct-cube cljs-answer) generate-grid))))))))))

@@ -22,4 +22,8 @@
   :problem3 {:target :node-script
              :output-to "public/js/problem3.js"
              :main problem3.main/main
-            :asset-path "/js"}}}
+             :asset-path "/js"}
+  :problem3_test {:target :node-script
+           :output-to "public/js/problem3_test.js"
+           :main problem3.main_test/runner
+           :asset-path "/js"}}}
