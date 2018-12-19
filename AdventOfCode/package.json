@@ -4,8 +4,11 @@
     "watch1js": "nodemon public/js/problem1.js",
     "watch2": "shadow-cljs watch problem2",
     "watch2js": "nodemon public/js/problem2.js",
+    "watch2test": "shadow-cljs watch problem2_test",
+    "watch2testjs": "nodemon public/js/problem2_test.js",
     "dev1": "concurrently \"yarn watch1\" \"yarn watch1js\"",
     "dev2": "concurrently \"yarn watch2\" \"yarn watch2js\"",
+    "dev2_test": "concurrently \"yarn watch2test\" \"yarn watch2testjs\"",
     "clean": "rm -rf node_modules .shadow-cljs public/js/*"
   },
   "devDependencies": {
