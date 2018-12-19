@@ -41,32 +41,24 @@
          col-2 coll-two
          matches []
          difference []]
-    ; (println difference)
     (cond
       (or (empty? col-1) (empty? col-2)) (do
-                                            (println "both empty" {:matches matches
-                                                      :difference difference})
-                                            {:matches matches
-                                             :difference difference})
-      ((comp not =) (first col-1) (first col-2)) (recur (rest col-1) (rest col-2) matches (conj difference (first col-2)))
+                                           {:matches matches
+                                            :difference difference})
+      (not= (first col-1) (first col-2)) (recur (rest col-1) (rest col-2) matches (conj difference (first col-2)))
       :else (recur (rest col-1) (rest col-2) (conj matches (first col-2)) difference))))
 
 (defn diff-chararcter-by-one [data]
-  (let [unique-collection (apply sorted-set (map str data))]
-    ; (println unique-collection)
-    (loop [collection unique-collection
-           different-by-one ()]
+  (let [unique-collection (apply vector (apply sorted-set data))]
+    (loop [collection unique-collection]
       (if (= 1 (count collection))
-        (do
-          ; (println different-by-one)
-          different-by-one)
-        (let [first-ids (first collection)
-              second-ids (second collection)
-              chars-differences (difference-in-string-position (-> first-ids (split "")) (-> second-ids (split "")))]
-
+        nil
+        (let [first-id (first collection)
+              second-id (second collection)
+              chars-differences (difference-in-string-position (-> first-id (split "")) (-> second-id (split "")))]
           (if (= 1 (count (:difference chars-differences)))
-            (recur (rest collection) (conj different-by-one chars-differences))
-            (recur (rest collection) different-by-one)))))))
+            chars-differences
+            (recur (rest collection))))))))
 
 (defn main []
   (take!
@@ -75,6 +67,6 @@
              (let [result (<! x)]
                (let [data (apply vector result)]
                  (println (diff-chararcter-by-one data)))
-              ;  (let [answer (checksum-term-sumation result)]
-              ;    (println (* (:2 answer) (:3 answer))))
-               )))))
+               (let [answer (checksum-term-sumation result)]
+                 (println (* (:2 answer) (:3 answer))))
+)))))
