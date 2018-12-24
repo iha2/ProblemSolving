@@ -23,7 +23,6 @@
                   width-vals (range (:width rec))]
               (reduce (fn [update-grid-x width]
                         (let [grid-value (create-grid-unit top-left-y top-left-x width height)]
-                          (if (nil? ((-> grid-value keys first) update-grid-x)) nil ((-> grid-value keys first) update-grid-x))
                           (merge-with + update-grid-x grid-value)))
                       update-grid-y width-vals)))
           grid (range (:height rec))))
@@ -35,15 +34,31 @@
   (count (filter #(> (second %1) 1) (->> claims generate-grid))))
 
 (defn get-corners-of-rec [rec]
-  {:top-left {:x (:top-left-x rec) :y (:top-right-y rec)}
-   :top-right {:x (+ (:width rec) (:top-left-x rec)) :y (:top-right-y rec)}})
+  {:top-left (str (:top-left-x rec) "-" (:top-right-y rec))
+   :top-right (str (+ (dec (:width rec)) (:top-left-x rec)) "-" (:top-right-y rec))
+   :bottom-left (str (:top-left-x rec) "-" (+ (dec (:height rec)) (:top-left-y rec)))
+   :bottom-right (str (+ (dec (:width rec)) (:top-left-x rec)) "-" (+ (dec (:height rec)) (:top-left-y rec)))})
 
-(defn get-corners-of-rec [rec]
-  {:top-left {:x (:top-left-x rec) :y (:top-right-y rec)}
-   :top-right {:x (+ (:width rec) (:top-left-x rec)) :y (:top-right-y rec)}
-   :bottom-left {:x (:top-left-x rec) :y (+ (:height rec) height)
-                 }
-   :bottom-right {:x (+ (:width rec) (:top-left-x rec)) :y (+ (+ (:width rec) (:top-left-y rec)))}})
+(defn do-any-corners-overlap?
+  [grid-state rec]
+  (println [((->> rec :top-left keyword) grid-state)
+            ((->> rec :top-right keyword) grid-state)
+            ((->> rec :bottom-left keyword) grid-state)
+            ((->> rec :bottom-right keyword) grid-state)])
+  (reduce #(if (> %2 1) (reduced true) %1) false
+          [((->> rec :top-left keyword) grid-state)
+           ((->> rec :top-right keyword) grid-state)
+           ((->> rec :bottom-left keyword) grid-state)
+           ((->> rec :bottom-right keyword) grid-state)]))
+
+(defn add-top-right-keys [rec]
+  (merge rec {:top-right-y (:top-left-y rec)
+              :top-right-x (+ (:top-left-x rec) (dec (:width rec)))}))
+
+(defn first-pure-rec [grid-state recs]
+  (reduce #(if (do-any-corners-overlap? grid-state (->> %1 add-top-right-keys get-corners-of-rec))
+             %2
+             (reduced %1)) recs))
 
 
 (defn read-from-file [file]
@@ -65,8 +80,5 @@
                  (let [cljs-answer (apply vector result)]
                    (let [claims (->> (map construct-rec cljs-answer))
                          grided-claims (part1 claims)]
-                     (println (filter #(let [bottom-right (keyword (str (+ (:width %1) (:top-left-x %1)) "-" (+ (:height %1) (:top-left-y %1))))
-                                             bottom-left (keyword (str (:top-left-x %1) "-" (+ (:height %1) (:top-left-y %1))))
-                                             top-right (keyword (str (+ (:width %1) (:top-left-x %1)) "-" (:top-left-y %1)))]
-                                         (if (nil? (bottom-right grided-claims))
-                                           false)) claims)))))))))
+                     (println grided-claims)
+                     (println (first-pure-rec (->> claims generate-grid) claims)))))))))
