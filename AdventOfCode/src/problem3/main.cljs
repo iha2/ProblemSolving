@@ -73,6 +73,7 @@
             data))
         (println err)))))
 
+
 (defn main []
   (take!
    (read-from-file "src/problem3/data.edn")
@@ -80,5 +81,4 @@
                  (let [cljs-answer (apply vector result)]
                    (let [claims (->> (map construct-rec cljs-answer))
                          grided-claims (part1 claims)]
-                     (println grided-claims)
                      (println (first-pure-rec (->> claims generate-grid) claims)))))))))

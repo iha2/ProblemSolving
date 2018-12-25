@@ -34,7 +34,7 @@
                                                :top-left-x 12
                                                :top-left-y 11
                                                :width 3
-                                              :height 2}))))
+                                               :height 2}))))
 
 (def test-claims [[12 "@" 13 11 5 2]
                   [13 "@" 12 13 3 3]
@@ -44,11 +44,11 @@
 ; :14-12 1, :16-12 1, :15-11 1, :12-15 2, :13-15 2, :14-14 1, :14-13 1, :14-11 1, :13-14 2,
 ; :12-12 1, :15-12 1}
 
-(def sample-grid {          :13-11 1, :14-11 1, :15-11 1, :16-11 1, :17-11 1,
-                  :12-12 1, :13-12 2, :14-12 1, :15-12 1, :16-12 1, :17-12 1,
+(def sample-grid {:13-11 1, :14-11 1, :15-11 1, :16-11 1, :17-11 1
+                  :12-12 1, :13-12 2, :14-12 1, :15-12 1, :16-12 1, :17-12 1
                   :12-13 2, :13-13 2, :14-13 1
-                  :12-14 2, :13-14 2, :14-14 1,
-                  :12-15 2, :13-15 2, :14-15 1 })
+                  :12-14 2, :13-14 2, :14-14 1
+                  :12-15 2, :13-15 2, :14-15 1})
 
 
 
@@ -68,10 +68,10 @@
 
 (deftest test-get-corners-of-rec
   (testing "collect corners of rec"
-    (is (= (get-corners-of-rec (add-top-right-keys (construct-rec [13 "@" 12 13 3 3]))) {:top-left  "12-13"
-                                                                    :top-right "14-13"
-                                                                    :bottom-left "12-15"
-                                                                    :bottom-right "14-15"}))
-    ))
+    (is (= (get-corners-of-rec (add-top-right-keys (construct-rec [13 "@" 12 13 3 3])))
+           {:top-left  "12-13"
+            :top-right "14-13"
+            :bottom-left "12-15"
+            :bottom-right "14-15"}))))
 
 (defn runner [] (run-tests))

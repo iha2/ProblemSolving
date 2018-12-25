@@ -20,6 +20,11 @@
     "ws": "^6.1.2"
   },
   "dependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "d3": "^5.7.0",
+    "create-react-class": "^15.6.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "spectacle": "^5.1.0"
   }
 }
