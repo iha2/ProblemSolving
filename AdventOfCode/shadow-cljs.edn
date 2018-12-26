@@ -8,11 +8,11 @@
   [proto-repl "0.3.1"]
   [proto-repl-charts  "0.3.2"]
   [org.clojure/core.async "0.4.474"]
-  [thheller/shadow-cljsjs "0.0.16"] 
+  [thheller/shadow-cljsjs "0.0.16"]
   [cljs-node-io "1.1.2"]]
 
  :builds
- {:problem1 {:target :node-script
+ {:problem1 {:target :node-scriptAi
              :output-to "public/js/problem1.js"
              :main problem1.main/main
              :asset-path "/js"}
@@ -26,7 +26,7 @@
              :asset-path "/js"}
   :problem3_test {:target :node-script
                   :output-to "public/js/problem3_test.js"
-                  :main problem3.main_test/runner
+                  :main problem3.main_test/run-main-tests
                   :asset-path "/js"}
   :problem3_viz {:target :browser
                  :output-to "public/js"
@@ -39,4 +39,8 @@
                   :http-port 8020}
                  :release {:output-dir "public/js"
                            :asset-path "/js"
-                           :compiler-options {:optimizations :advanced}}}}}
+                           :compiler-options {:optimizations :advanced}}}
+  :visualize_tests {:target :node-script
+                    :output-to "public/js/visualize_tests.js"
+                    :main problem3.visualize_tests/run-visualize-tests
+                    :asset-path "/js"}}}

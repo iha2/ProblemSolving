@@ -12,6 +12,7 @@
     "dev2": "concurrently \"yarn watch2\" \"yarn watch2js\"",
     "dev3": "concurrently \"yarn watch3\" \"yarn watch3js\"",
     "dev3_test": "concurrently \"yarn watch3_test\" \"yarn watch3js_test\"",
+    "visualize_tests": "concurrently \"shadow-cljs watch visualize_tests\" \"nodemon public/js/visualize_tests.js\"",
     "clean": "rm -rf node_modules .shadow-cljs public/js/*"
   },
   "devDependencies": {
@@ -24,7 +25,6 @@
     "d3": "^5.7.0",
     "create-react-class": "^15.6.3",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "spectacle": "^5.1.0"
+    "react-dom": "^16.5.2"
   }
 }

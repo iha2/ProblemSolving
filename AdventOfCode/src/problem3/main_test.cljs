@@ -1,31 +1,9 @@
 (ns problem3.main_test
   (:require [cljs.test :refer-macros [deftest is testing run-tests]]
-            [problem3.main :refer [create-grid-unit update-grid-with-rec add-top-right-keys construct-rec generate-grid get-corners-of-rec]]))
-
-(def sample-cube {:index 1
-                  :meta-data "@"
-                  :top-left-x 10
-                  :top-left-y 10
-                  :width 30
-                  :height 10})
-
-(def sample-cube-2 {:index 1
-                    :meta-data "@"
-                    :top-left-x 10
-                    :top-left-y 10
-                    :width 5
-                    :height 5})
-
-(def grid {:12-11 1, :12-10 1, :13-12 1, :13-13 1, :11-11 1, :14-10 1, :12-14 1
-           :12-13 1, :13-11 1, :10-13 1, :14-12 1, :11-12 1, :10-10 1, :10-14 1
-           :14-14 1, :14-13 1, :10-11 1, :10-12 1, :14-11 1, :13-14 1, :11-13 1
-           :13-10 1, :12-12 1, :11-10 1, :11-14 1})
-
-(def grid-2 {:12-11 1, :12-10 1, :13-12 1, :13-13 1, :11-11 1, :14-10 1, :12-14 1
-             :12-13 1, :13-11 1, :10-13 1, :14-12 1, :11-12 1, :10-10 1, :10-14 1
-             :14-14 1, :14-13 1, :10-11 1, :10-12 1, :14-11 1, :13-14 1, :11-13 1
-             :13-10 1, :12-12 1, :11-10 1, :11-14 1})
-
+            [problem3.main :refer [create-grid-unit update-grid-with-rec
+                                   add-top-right-keys construct-rec generate-grid
+                                   get-corners-of-rec]]
+            [problem3.consts :refer [sample-cube sample-cube-2 grid grid-2 sample-grid]]))
 
 (deftest test-construct-rec
   (testing "construct rectangle"
@@ -35,22 +13,6 @@
                                                :top-left-y 11
                                                :width 3
                                                :height 2}))))
-
-(def test-claims [[12 "@" 13 11 5 2]
-                  [13 "@" 12 13 3 3]
-                  [14 "@" 12 12 2 4]])
-
-; {:13-12 2, :13-13 2, :17-11 1, :17-12 1, :14-15 1, :16-11 1, :12-14 2, :12-13 2, :13-11 1,
-; :14-12 1, :16-12 1, :15-11 1, :12-15 2, :13-15 2, :14-14 1, :14-13 1, :14-11 1, :13-14 2,
-; :12-12 1, :15-12 1}
-
-(def sample-grid {:13-11 1, :14-11 1, :15-11 1, :16-11 1, :17-11 1
-                  :12-12 1, :13-12 2, :14-12 1, :15-12 1, :16-12 1, :17-12 1
-                  :12-13 2, :13-13 2, :14-13 1
-                  :12-14 2, :13-14 2, :14-14 1
-                  :12-15 2, :13-15 2, :14-15 1})
-
-
 
 (def sample-cubes (map construct-rec test-claims))
 
@@ -74,4 +36,4 @@
             :bottom-left "12-15"
             :bottom-right "14-15"}))))
 
-(defn runner [] (run-tests))
+(defn run-main-tests [] (run-tests))
