@@ -2,17 +2,20 @@
   "scripts": {
     "watch1": "shadow-cljs watch problem1",
     "watch1js": "nodemon public/js/problem1.js",
+    "dev1": "concurrently \"yarn watch1\" \"yarn watch1js\"",
     "watch2": "shadow-cljs watch problem2",
     "watch2js": "nodemon public/js/problem2.js",
+    "dev2": "concurrently \"yarn watch2\" \"yarn watch2js\"",
     "watch3": "shadow-cljs watch problem3",
     "watch3js": "nodemon public/js/problem3.js",
+    "dev3": "concurrently \"yarn watch3\" \"yarn watch3js\"",
     "watch3_test": "shadow-cljs watch problem3_test",
     "watch3js_test": "nodemon public/js/problem3_test.js",
-    "dev1": "concurrently \"yarn watch1\" \"yarn watch1js\"",
-    "dev2": "concurrently \"yarn watch2\" \"yarn watch2js\"",
-    "dev3": "concurrently \"yarn watch3\" \"yarn watch3js\"",
     "dev3_test": "concurrently \"yarn watch3_test\" \"yarn watch3js_test\"",
     "visualize_tests": "concurrently \"shadow-cljs watch visualize_tests\" \"nodemon public/js/visualize_tests.js\"",
+    "watch4": "shadow-cljs watch problem4",
+    "watch4js": "nodemon public/js/problem4.js",
+    "dev4": "concurrently \"yarn watch4\" \"yarn watch4js\"",
     "clean": "rm -rf node_modules .shadow-cljs public/js/*"
   },
   "devDependencies": {

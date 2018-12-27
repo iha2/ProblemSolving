@@ -1,5 +1,5 @@
 (ns problem3.main (:require [cljs-node-io.core :as io :refer [aslurp aspit]]
-                            [cljs.core.async :refer [go chan <! >! buffer put! take!]]
+                            [cljs.core.async :refer [go chan <! >! put! take!]]
                             [cljs.reader :refer [read-string]]
                             [problem3.grid :refer [get-corners-of-rec construct-rec
                                                    generate-grid do-any-corners-overlap?

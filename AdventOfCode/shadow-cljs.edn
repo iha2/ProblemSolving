@@ -43,4 +43,8 @@
   :visualize_tests {:target :node-script
                     :output-to "public/js/visualize_tests.js"
                     :main problem3.visualize_tests/run-visualize-tests
-                    :asset-path "/js"}}}
+                    :asset-path "/js"}
+  :problem4 {:target :node-script
+                :output-to "public/js/problem4.js"
+                :main problem4.main/main
+                :asset-path "/js"}}}
