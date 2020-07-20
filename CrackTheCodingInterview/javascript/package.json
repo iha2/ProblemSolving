@@ -1,0 +1,21 @@
+{
+  "name": "cracking-the-codiing-interview",
+  "version": "1.0.0",
+  "description": "A respository of my cracking the coding interview solutionos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "code",
+    "interview",
+    "cracking",
+    "the",
+    "code"
+  ],
+  "author": "Iha2",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.1.0"
+  }
+}

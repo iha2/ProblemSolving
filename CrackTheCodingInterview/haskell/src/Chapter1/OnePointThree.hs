@@ -20,7 +20,13 @@ stringToMap stringMap (character : characters) =
     else stringToMap (M.insert character 1 stringMap) characters
 
 stringHash :: String -> Int
-stringHash string = foldr (\x y -> (fromEnum (fst x) * snd x) + y) 0 $ M.toList $ stringToMap M.empty string
+stringHash string =
+  foldr (\x y -> (fromEnum (fst x) * snd x) + y) 0 $ M.toList $ stringToMap
+    M.empty
+    string
 
 isPermutation :: String -> String -> Bool
-isPermutation firstString secondString = stringHash firstString == stringHash secondString
+isPermutation firstString secondString =
+  if length firstString == length secondString
+    then stringHash firstString == stringHash secondString
+    else False

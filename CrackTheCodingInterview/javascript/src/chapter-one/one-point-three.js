@@ -1,6 +1,5 @@
 // 1.3 Given 2 string, check if one is a permutation of the other
 // normal larmon
-//
 
 const checkPermutation = (firstString, secondString) => {
   const firstStringCharacters = firstString.split("");
