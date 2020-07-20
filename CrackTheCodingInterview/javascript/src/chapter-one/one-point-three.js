@@ -16,6 +16,7 @@ const checkPermutation = (firstString, secondString) => {
         return { ...result, [character]: 1 };
       }
     }, {});
+
     const nextResultMap = secondStringCharacters.reduce((result, character) => {
       if (result[character]) {
         return { ...result, [character]: result[character] + 1 };
@@ -23,6 +24,7 @@ const checkPermutation = (firstString, secondString) => {
         return { ...result, [character]: 1 };
       }
     }, {});
+
     return Object.keys(nextResultMap).reduce((result, key) => {
       return result && !!nextResultMap[key] && !!resultMap[key];
     }, true);
