@@ -1,14 +1,14 @@
 // Given 2 string check if one is a permutation of the other
 // normal larmon
 
-const stringToValue = (string) => {
+export const stringToValue = (string) => {
   const stringCharacters = string.split("");
   return stringCharacters.reduce((stringValue, character) => {
     return stringValue + character.charCodeAt(0);
   }, 0);
 };
 
-const checkPermutation = (firstString, secondString) => {
+export const checkPermutation = (firstString, secondString) => {
   if (firstString.length !== secondString.length) {
     return false;
   } else {
