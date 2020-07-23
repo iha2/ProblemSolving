@@ -18,6 +18,3 @@ export const checkPermutation = (firstString, secondString) => {
   }
 };
 
-console.log(checkPermutation("normal", "larmon"));
-console.log(checkPermutation("lester", "reestl"));
-console.log(checkPermutation("leszter", "reestl"));
