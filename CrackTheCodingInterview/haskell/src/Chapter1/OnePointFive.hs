@@ -11,17 +11,17 @@ where
 
 import qualified Data.Text                     as T
 import Debug.Trace
-import Data.Char
+import qualified Data.Char as C
 
 stringCompressor' :: String -> String -> Char -> Int -> String -> String
 stringCompressor' compressedString [] lastCharacter number originalString = if length originalString <= length updatedCompressedString then originalString else updatedCompressedString 
-   where updatedCompressedString = lastCharacter:intToDigit number:compressedString
+   where updatedCompressedString = lastCharacter:C.intToDigit number:compressedString
 stringCompressor' compressedString (next:nextxs) previousChar number originalString 
  | previousChar == next = stringCompressor' compressedString nextxs next (number + 1) originalString
  | otherwise =  stringCompressor' updatedCompressedString nextxs next 1 originalString 
-   where updatedCompressedString = previousChar:intToDigit number:compressedString
+   where updatedCompressedString =[previousChar] ++ (show number :: String) ++ compressedString
 
-stringCompressor string = stringCompressor' "" (tail string)  first 1 string
+stringCompressor string = stringCompressor' "" (tail string) first 1 string
   where first = head string
 
 
