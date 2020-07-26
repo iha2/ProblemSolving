@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8a2826603c61571db1a08fd870e3f3e8cf31803865154b77c32dbae301b60585
+-- hash: 3b3f9840e1ee915af4d5cb4e3b66be9d4971df751c6b24bfadb0607cbbbe66eb
 
 name:           haskell
 version:        0.1.0.0
@@ -29,7 +29,6 @@ library
   exposed-modules:
       Chapter1.OnePointFive
       Chapter1.OnePointThree
-      Chapter1.OnePointThreeTest
       Library
   other-modules:
       Paths_haskell

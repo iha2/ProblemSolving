@@ -1,7 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Chapter1.OnePointThree
-  ( stringToMap
+  ( stringToMap,
+    isPermutation
   )
 where
 

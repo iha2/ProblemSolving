@@ -1,8 +1,11 @@
+import Chapter1.OnePointThree ( isPermutation )
 import Test.HUnit
-import Chapter1.OnePointThree
 
 
-isPermutationTest =  isPermutation "normal" "larmon"
+isPalindromeTest =
+  TestCase $ assertBool "should be able to catch permutation normal and larmon" $ isPermutation "normal" "larmon"
 
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = do
+  runTestTT $ TestList [isPalindromeTest]
+  return ()
