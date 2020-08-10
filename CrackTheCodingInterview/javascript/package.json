@@ -13,6 +13,7 @@
     "the",
     "code"
   ],
+  "type": "module",
   "author": "Iha2",
   "license": "ISC",
   "devDependencies": {

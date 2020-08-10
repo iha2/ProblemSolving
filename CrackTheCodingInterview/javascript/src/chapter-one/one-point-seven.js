@@ -33,9 +33,8 @@ export const convertRowsAndColumns = (matrix, rIdx) => {
   return updatedWithColumn;
 };
 
-export const convertMatrix = (matrix) => {
-  return findZeroIndexes(matrix).reduce((currentMatrix, indexSet) => {
+export const convertMatrix = (matrix) =>
+  findZeroIndexes(matrix).reduce((currentMatrix, indexSet) => {
     const updatedMatrix = convertRowsAndColumns(currentMatrix, indexSet);
     return updatedMatrix;
   }, matrix);
-};
