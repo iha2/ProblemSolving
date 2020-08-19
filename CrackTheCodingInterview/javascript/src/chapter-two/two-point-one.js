@@ -2,7 +2,7 @@ import { Node } from "./linked-list.js";
 
 const notEmpty = (node) => node !== null && node !== undefined;
 
-const removeDuplicates = (linkedList) => {
+export const removeDuplicates = (linkedList) => {
   const nodeHashTable = {};
 
   if (!notEmpty(linkedList.next)) return linkedList;
