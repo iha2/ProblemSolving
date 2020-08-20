@@ -21,6 +21,3 @@ export const removeDuplicates = (linkedList) => {
   return resultLinkedList;
 };
 
-const duplicateList = Node.listToLinkedList([1, 2, 3, 4, 5, 6, 3, 4, 5, 5]);
-const linkedListSet = removeDuplicates(duplicateList);
-console.log(linkedListSet.printNode());

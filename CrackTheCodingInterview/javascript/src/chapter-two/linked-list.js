@@ -1,3 +1,5 @@
+const notEmpty = (node) => node !== undefined && node !== null;
+
 export class Node {
   next = null;
 
@@ -32,5 +34,18 @@ export class Node {
     });
     return linkedList;
   }
-}
 
+  isEqual(comparitorNode) {
+    let toCompare = comparitorNode;
+    let currentList = this;
+
+    while (notEmpty(toCompare)) {
+      if (toCompare.data !== currentList.data) {
+        return false;
+      }
+      toCompare = toCompare.next;
+      currentList = currentList.next;
+    }
+    return true;
+  }
+}

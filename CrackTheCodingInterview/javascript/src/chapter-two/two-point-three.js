@@ -2,7 +2,7 @@ import { Node } from "./linked-list.js";
 
 const notEmpty = (node) => node !== null && node !== undefined;
 
-const removeNode = (linkedList, node) => {
+export const removeNode = (linkedList, node) => {
   const trimmedNode = new Node(linkedList.data);
   let currentNode = undefined;
 
@@ -25,8 +25,3 @@ const removeNode = (linkedList, node) => {
   return trimmedNode;
 };
 
-let singleItemList = new Node("a");
-let linkedList = Node.listToLinkedList(["a", "b", "c", "d", "e"]);
-const cleanedSingleNode = removeNode(singleItemList, new Node("a")).printNode();
-const cleanedNode = removeNode(linkedList, new Node("c")).printNode();
-console.log(cleanedNode, cleanedSingleNode);
