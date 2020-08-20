@@ -9,8 +9,8 @@ export class Stack {
   pop() {
     this.length -= 1;
     if (notEmpty(this.top)) {
-      const value = top.data;
-      top = top.next;
+      const value = this.top.data;
+      this.top = this.top.next;
       return value;
     }
     return null;

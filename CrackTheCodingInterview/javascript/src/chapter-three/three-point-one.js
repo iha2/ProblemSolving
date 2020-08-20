@@ -22,6 +22,7 @@ export class StackOfStacks {
     } else {
       const newStack = new Stack();
       newStack.push(item);
+
       this.stacks.push(newStack);
     }
     return this;
@@ -31,9 +32,8 @@ export class StackOfStacks {
     if (this.stacks.length) {
       const head = this.stacks[0];
       const value = head.pop();
-
       if (!head.length) {
-        this.stacks.splice(0);
+        this.stacks.splice(0, 1);
       }
 
       return value;
@@ -51,6 +51,3 @@ export class StackOfStacks {
   }
 }
 
-const mystack = new StackOfStacks(2);
-mystack.push(1).push(2).push(3);
-console.log(mystack.printStack());
