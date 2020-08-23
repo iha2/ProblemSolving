@@ -1,23 +1,29 @@
+import { Node } from "../chapter-two/linked-list.js";
+
 const notEmpty = (node) => node !== undefined && node !== null;
 
 export class Queue {
   queue = null;
 
   enqueue(item) {
-    if (notEmpty(queue)) {
-      queue.appendToTail(queue);
+    if (notEmpty(this.queue)) {
+      this.queue.appendToTail(this.queue);
     } else {
-      queue = new Node(item);
+      this.queue = new Node(item);
     }
   }
 
   dequeue() {
-    if (notEmpty(queue)) {
-      const value = queue.data;
-      queue = queue.next;
+    if (notEmpty(this.queue)) {
+      const value = this.queue.data;
+      this.queue = this.queue.next;
       return value;
     } else {
       return null;
     }
+  }
+
+  displayQueue() {
+    return `${this.queue ? this.queue.printNode() : ""}`;
   }
 }
