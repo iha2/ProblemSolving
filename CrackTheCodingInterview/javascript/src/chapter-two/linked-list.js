@@ -2,6 +2,7 @@ const notEmpty = (node) => node !== undefined && node !== null;
 
 export class Node {
   next = null;
+  data = undefined;
 
   constructor(data) {
     this.data = data;
